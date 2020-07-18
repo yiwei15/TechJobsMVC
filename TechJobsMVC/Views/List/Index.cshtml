@@ -5,7 +5,7 @@
 
 <table class="centeredTable">
     <tr>
-        @foreach(var column in ViewBag.columns)
+        @foreach (var column in ViewBag.columns)
         {
             <th>@column.Value</th>
         }
@@ -13,21 +13,37 @@
     <tr>
         @{
             //TODO #2: Complete the View Jobs By Category Table
+
         }
 
-        <td></td> @* Feel free to remove or modify this element if necessary. *@
-        @foreach (var category in ViewBag.tableChoices)
-        {
-            <td>
-                <ul>
-                    @foreach (var item in category.Value)
-                    {
-                        <li>
-                            <a asp-controller="List" asp-action="Jobs" asp-route-column="@category.Key" asp-route-value="@item">@item</a>
-                        </li>
-                    }
-                </ul>
-            </td>
-        }
-    </tr>
-        </table>
+        <td>
+            <a asp-controller="List" asp-action="Jobs" asp-route-column="all" >View All</a>
+        </td>
+
+
+            @* Feel free to remove or modify this element if necessary. *@
+            @foreach (var category in ViewBag.tableChoices) //category represents one key/value pair
+            {
+
+
+                <td>
+                    <ul>
+                        @foreach (var item in category.Value) //item represents one entry from category.Value list
+                        {
+                            <li>
+                                <a asp-controller="List" asp-action="Jobs" asp-route-column="@category.Key" asp-route-value="@item">@item</a>
+
+                            </li>
+                        }
+                    </ul>
+                </td>
+            }
+
+        </tr>
+</table>
+
+@*
+    asp-route-* allows Razor to dynamically generate query parameters for our URL
+    -column -->key, -value -->value
+    https://localhost:5001/List/Jobs?column=employer&value=Buzzbold
+*@
